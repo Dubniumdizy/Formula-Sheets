@@ -1,0 +1,135 @@
+\usepackage[lmargin=2cm,rmargin=2cm,tmargin=3cm,bmargin=2cm]{geometry}
+\usepackage{tocloft} % for managing table of contents
+\usepackage{cmap}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\usepackage[english, swedish]{babel}
+%\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{esvect}
+\usepackage{nicematrix}
+\NiceMatrixOptions{cell-space-limits = 2pt}
+\usepackage{commath}
+\usepackage{breqn}
+\usepackage{xfrac}
+\usepackage{bm}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, tikzmark, shapes.misc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[swedish]{cleveref}
+\usepackage{datetime2}
+\usepackage[most]{tcolorbox}
+\usepackage[normalem]{ulem}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{csvsimple}
+\usepackage{xparse}
+\usepackage{todonotes}
+\DTMsetdatestyle{ddmmyyyy}
+\DTMsetup{datesep=/, yearmonthsep=-}
+\pagestyle{fancy}
+
+
+\newcommand{\op}[1]{\operatorname{#1}}
+\newcommand{\striked}[1]{\mathrel{{\ooalign{\hidewidth$\not{\phantom{=}}$\hidewidth\cr$#1$}}}} % Make a symbol strikethroughed with a standard-length strike line
+\newcommand{\strikedwhole}[1]{\tikzmarknode[strike out, draw]{1}{#1}} % Make a symbol strikethroughed with the strike line going from top right to bottom left of the symbol
+
+\newcommand{\qed}{\(\null\hfill\square\)}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\defeq}{\mathrel{\mathop:}=}
+\newcommand{\eqdef}{=\mathrel{\mathop:}}
+\newcommand{\eqq}{\stackrel{?}{=}}
+\newcommand{\eqe}{\stackrel{!}{=}}
+\newcommand{\matrixline}[3][right]{\Block[borders={#1,tikz={dashed}}]{#2-#3}{}}
+\newcommand{\question}[1]{
+	\begin{tcolorbox}[boxrule=0pt, sharp corners=all]
+		#1
+	\end{tcolorbox}
+}
+\newcommand{\diffd}[1]{\mathrm{d}#1} % Differential to be used by itself
+\newcommand{\intd}[1]{\ \diffd{#1}} % Differential to be used in integrals
+\newcommand{\derfrac}[2]{\frac{\diffd{#1}}{\diffd{#2}}} % Derivative fraction
+\newcommand{\parfrac}[2]{\frac{\partial #1}{\partial #2}} % Partial derivative fraction
+\newcommand{\highderfrac}[3]{\derfrac{^{#1}#2}{{#3}^{#1}}} % Higher order derivative fraction
+\newcommand{\highparfrac}[3]{\parfrac{^{#1}#2}{{#3}^{#1}}} % Higher order partial derivative fraction
+\newcommand{\trsp}{\mathrm{T}} % Transpose
+\newcommand{\empset}{\varnothing} % My preferred symbol for empty set
+\newcommand{\laplace}{\mathcal{L}}
+\newcommand{\laplaceinv}{\laplace^{-1}}
+\newcommand{\laplaceof}[1]{\laplace\left\{#1\right\}}
+\newcommand{\laplaceinvof}[1]{\laplaceinv\left\{#1\right\}}
+\newcommand{\inprod}[1]{\left\langle#1\right\rangle} % Inner product
+\newcommand{\conj}[1]{\overline{#1}} % Complex conjugate
+\usepackage{bbm}
+\newcommand{\one}{\mathbbm{1}} % Thick 1
+\newcommand{\eps}{\varepsilon}
+\newcommand{\iffvert}{\raisebox{-\dimexpr\ht\strutbox}{\rotatebox{90}{$\iff$}}} % Vertical iff
+\newcommand{\dubrace}[2]{\underbrace{#1}_{\displaystyle#2}} % Display Underbrace
+\newcommand{\dobrace}[2]{\overbrace{#1}^{\displaystyle#2}} % Display Overbrace
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+\DeclareMathOperator*{\ulim}{\underline{\lim}}
+\DeclareMathOperator*{\olim}{\overline{\lim}}
+
+% Linear algebra
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\im}{im}
+
+%% Floating refs %%
+\makeatletter
+% Args:
+% #1: Label
+% #2: Text (not printed; but may be printed when calling \fref)
+\newcommand{\flabel}[2]{%
+  \phantomsection\hypertarget{#1}{}%
+  \protected@write\@auxout{}{\string\newlabeltext{#1}{{#2}}}%
+}
+
+% Internal macro: stores text associated with a label
+\newcommand{\newlabeltext}[2]{%
+  \expandafter\gdef\csname flabeltext@#1\endcsname{#2}%
+}
+
+% Args:
+% #1: Label
+% #2: Text (if empty, inherit from corresponding \flabel)
+\NewDocumentCommand{\fref}{m g}{%
+  \IfNoValueTF{#2}{%
+	\@ifundefined{flabeltext@#1}{%
+	  \textbf{??}%
+	}{%
+	  \hyperlink{#1}{\csname flabeltext@#1\endcsname}%
+	}%
+  }{%
+    \hyperlink{#1}{#2}%
+  }%
+}
+\makeatother
+
+% For reports
+\setcounter{secnumdepth}{0} % sections are now unnumbered but still show up in table of contents
+\renewcommand\cftsecdotsep{\cftdot} % add dots in table of contents
+\makeatletter % Make \@starttoc possible; this must be run before defining a command that uses \@starttoc
+\newcommand{\makemytitlepage}{
+	\maketitle
+	\vspace*{\fill}
+	\@starttoc{toc}
+	\vspace*{\fill}
+	\thispagestyle{empty}
+	\newpage
+	\pagenumbering{arabic} % Start page numbering here
+}
+\makeatother % Undo \makeatletter
+
