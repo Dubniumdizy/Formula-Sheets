@@ -2,11 +2,25 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "LaTeX: watch (latexmk -pvc)",
+      "label": "LaTeX: watch (latexmk -pvc, numme)",
       "type": "shell",
-      "command": "latexmk -pdf -pvc -interaction=nonstopmode main_numme.tex",
+      "command": "cmd /C chcp 65001 >nul && latexmk -pdf -pvc -interaction=nonstopmode main_numme.tex",
       "options": {
         "cwd": "${workspaceFolder}/latex-templates-numme"
+      },
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "LaTeX: watch (latexmk -pvc, aa)",
+      "type": "shell",
+      "command": "cmd /C chcp 65001 >nul && latexmk -pdf -pvc -interaction=nonstopmode main_aa.tex",
+      "options": {
+        "cwd": "${workspaceFolder}/latex-templates-aa"
       },
       "isBackground": true,
       "presentation": {
