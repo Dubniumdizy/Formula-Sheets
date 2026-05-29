@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "LaTeX: watch (latexmk -pvc)",
+      "type": "shell",
+      "command": "latexmk -pdf -pvc -interaction=nonstopmode main.tex",
+      "options": {
+        "cwd": "${workspaceFolder}/latex-templates"
+      },
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

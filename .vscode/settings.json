@@ -1,0 +1,6 @@
+{
+    "python-envs.defaultEnvManager": "ms-python.python:venv",
+    "latex-workshop.latex.autoBuild.run": "onSave",
+    "latex-workshop.latex.autoBuild.onSave.enabled": true,
+    "latex-workshop.view.pdf.viewer": "tab"
+}
