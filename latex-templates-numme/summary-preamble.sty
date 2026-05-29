@@ -1,0 +1,75 @@
+\usepackage{xstring}
+\tcbuselibrary{breakable}
+
+% Colors
+\definecolor{KeywordColor}{HTML}{308741}
+\definecolor{SubKeywordColor}{HTML}{144f20}
+\definecolor{TopicColor}{HTML}{4c4c4c}
+\definecolor{IntuitionColor}{HTML}{0f424c}
+\definecolor{TopicBorderColor}{HTML}{888888}
+\newcommand{\keyword}[1]{\textcolor{KeywordColor}{#1}}
+\newcommand{\subkeyword}[1]{\textcolor{SubKeywordColor}{#1}}
+\newcommand{\intuition}[1]{\textcolor{IntuitionColor}{#1}}
+
+% Arrow
+% \DeclareFontFamily{U}{mathb}{}
+% \DeclareFontShape{U}{mathb}{m}{n}{
+%   <5.5-6.5> mathb6
+%   <6.5-7.5> mathb7
+%   <7.5-8.5> mathb8
+%   <8.5-9.5> mathb9
+%   <9.5-11>  mathb10
+%   <11->     mathb12
+% }{}
+% \DeclareSymbolFont{mathb}{U}{mathb}{m}{n}
+% \DeclareMathSymbol{\relatedtopicarrow}{3}{mathb}{"EB}
+\newcommand{\relatedtopicarrow}{\rightarrow}
+
+% Topics
+\NewDocumentCommand{\topic}{m +g +g}{
+    % Args:
+    % Topic name
+    % Keyword name (If #3 exists, else Content)
+    % Content
+    \textcolor{TopicColor}{\uline{#1}}:
+    \IfNoValueTF{#3}{\relax}{(\color{SubKeywordColor}\textbf{#2}\color{black})}
+    \nopagebreak\begin{tcolorbox}[
+        % breakable,
+        boxrule=0pt,
+        colback=black!2,
+        left=1mm,
+        frame hidden,
+        sharp corners,
+        enhanced,
+        borderline west={2pt}{0pt}{TopicBorderColor}]
+        \IfNoValueTF{#3}{#2}{#3}
+    \end{tcolorbox}
+}
+
+\NewDocumentCommand{\topiccomment}{s m +m}{
+    % Args:
+    % *: Omit linebreak
+    % Comment name
+    % Content
+    \begin{itemize}[leftmargin=*]
+        \item[$\relatedtopicarrow$] \color{TopicColor}\uline{#2}:
+        \color{black}\IfBooleanTF{#1}{\relax}{\\}#3
+        \color{black}
+    \end{itemize}
+}
+
+\NewDocumentCommand{\topicintuition}{m +m}{
+    % Args:
+    % Comment name
+    % Content
+    \begin{itemize}[leftmargin=*]
+        \item[$\relatedtopicarrow$] \color{IntuitionColor}\uline{#1}: #2\color{black}
+    \end{itemize}
+}
+
+\NewDocumentCommand{\proof}{s +m}{
+    % Args:
+    % *: Omit linebreak
+    % Content
+    \IfBooleanTF{#1}{\topiccomment*{Proof}{#2}}{\topiccomment{Proof}{#2}}
+}

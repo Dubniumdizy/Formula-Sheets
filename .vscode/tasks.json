@@ -4,9 +4,9 @@
     {
       "label": "LaTeX: watch (latexmk -pvc)",
       "type": "shell",
-      "command": "latexmk -pdf -pvc -interaction=nonstopmode main.tex",
+      "command": "latexmk -pdf -pvc -interaction=nonstopmode main_numme.tex",
       "options": {
-        "cwd": "${workspaceFolder}/latex-templates"
+        "cwd": "${workspaceFolder}/latex-templates-numme"
       },
       "isBackground": true,
       "presentation": {
