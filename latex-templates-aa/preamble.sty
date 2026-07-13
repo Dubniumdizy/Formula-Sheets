@@ -45,6 +45,47 @@
 \newcommand{\qed}{\(\null\hfill\square\)}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\C}{\mathbb{C}}
+\makeatother % Undo \makeatletter
+
+% Minimal definitions for custom environments used in the AA template
+% These provide lightweight styling when the original definitions are not present.
+\newcommand{\key}[1]{\keyword{#1}}
+
+\newenvironment{defi}[1]{%
+  \begin{tcolorbox}[boxrule=0pt,colback=black!2,sharp corners,title=\textbf{Definition: #1}]
+  \small
+}{%
+  \end{tcolorbox}
+}
+
+\newenvironment{ther}[1]{%
+  \begin{tcolorbox}[boxrule=0pt,colback=black!3,sharp corners,title=\textbf{Theorem: #1}]
+  \small
+}{%
+  \end{tcolorbox}
+}
+
+\newenvironment{add}[1][]{%
+  \begin{tcolorbox}[boxrule=0pt,colback=black!4,sharp corners,title=\textbf{Remark: #1}]
+  \small
+}{%
+  \end{tcolorbox}
+}
+
+\newenvironment{aha}[1][]{%
+  \begin{tcolorbox}[boxrule=0pt,colback=black!6,sharp corners,title=\textbf{Note: #1}]
+  \small
+}{%
+  \end{tcolorbox}
+}
+
+\newenvironment{prf}[1][]{%
+  \begin{tcolorbox}[boxrule=0pt,colback=black!5,sharp corners,title=\textbf{Proof: #1}]
+  \small
+}{%
+  \qed
+  \end{tcolorbox}
+}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\N}{\mathbb{N}}
@@ -52,11 +93,11 @@
 \newcommand{\eqdef}{=\mathrel{\mathop:}}
 \newcommand{\eqq}{\stackrel{?}{=}}
 \newcommand{\eqe}{\stackrel{!}{=}}
-\newcommand{\matrixline}[3][right]{\Block[borders={#1,tikz={dashed}}]{#2-#3}{}}
+\newcommand{\matrixline}[3][right]{\Block[borders={#1,tikz={dashed}}]{#2-#3}{} }
 \newcommand{\question}[1]{
-	\begin{tcolorbox}[boxrule=0pt, sharp corners=all]
-		#1
-	\end{tcolorbox}
+\tcolorbox[boxrule=0pt, sharp corners=all]
+	#1
+\endtcolorbox
 }
 \newcommand{\diffd}[1]{\mathrm{d}#1} % Differential to be used by itself
 \newcommand{\intd}[1]{\ \diffd{#1}} % Differential to be used in integrals
@@ -107,11 +148,11 @@
 % #2: Text (if empty, inherit from corresponding \flabel)
 \NewDocumentCommand{\fref}{m g}{%
   \IfNoValueTF{#2}{%
-	\@ifundefined{flabeltext@#1}{%
-	  \textbf{??}%
-	}{%
-	  \hyperlink{#1}{\csname flabeltext@#1\endcsname}%
-	}%
+\@ifundefined{flabeltext@#1}{%
+  \textbf{??}%
+}{%
+  \hyperlink{#1}{\csname flabeltext@#1\endcsname}%
+}%
   }{%
     \hyperlink{#1}{#2}%
   }%
@@ -131,57 +172,4 @@
 	\newpage
 	\pagenumbering{arabic} % Start page numbering here
 }
-\makeatother % Undo \makeatletter
-
-% Definitioner av rutor med tcolorbox
-\newtcolorbox{definition}[1][]{
-    sharp corners=all,
-    boxrule=1pt,
-    colback=blue!5,       % Ljusblå bakgrund
-    colframe=blue!60!black, % Mörkblå ram
-    fonttitle=\bfseries,
-    title={Definition},
-    #1
-}
-
-\newtcolorbox{sats}[1][]{
-    sharp corners=all,
-    boxrule=1pt,
-    colback=red!5,         % Ljusröd bakgrund
-    colframe=red!60!black,  % Mörkröd ram
-    fonttitle=\bfseries,
-    title={Sats},
-    #1
-}
-
-\newtcolorbox{bevis}[1][]{
-    sharp corners=all,
-    boxrule=0.5pt,
-    colback=white,         % Vit bakgrund
-    colframe=black!60,     % Grå ram
-    fonttitle=\bfseries\itshape,
-    title={Bevis},
-    #1
-}
-
-\newtcolorbox{intuition}[1][]{
-    sharp corners=all,
-    boxrule=0pt,
-    leftrule=3pt,          % Tjock linje bara till vänster
-    colback=green!5,       % Ljusgrön bakgrund
-    colframe=green!50!black,
-    fonttitle=\bfseries,
-    title={Intuition},
-    #1
-}
-
-\newtcolorbox{kommentar}[1][]{
-    sharp corners=all,
-    boxrule=0pt,
-    leftrule=3pt,          % Tjock linje bara till vänster
-    colback=yellow!10,     % Ljusgul bakgrund
-    colframe=orange!80!black,
-    fonttitle=\bfseries,
-    title={Kommentar},
-    #1
-}
+\makeatother
